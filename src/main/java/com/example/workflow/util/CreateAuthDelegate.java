@@ -44,11 +44,26 @@ public class CreateAuthDelegate  implements JavaDelegate {
                 authorizationService.saveAuthorization((Authorization)userAdminAuth);
             }
         }
+        // Do not let them see our Util processes
         final AuthorizationEntity userCreateProcessAuth = new AuthorizationEntity(2);
         userCreateProcessAuth.setUserId(userName);
         userCreateProcessAuth.setResource((Resource)Resources.PROCESS_DEFINITION);
-        userCreateProcessAuth.setResourceId("UserAndTenantCreator");
+        userCreateProcessAuth.setResourceId("CreateUserAndTenant");
         userCreateProcessAuth.removePermission((Permission)Permissions.ALL);
         authorizationService.saveAuthorization((Authorization)userCreateProcessAuth);
+
+        final AuthorizationEntity userParseProcessAuth = new AuthorizationEntity(2);
+        userParseProcessAuth.setUserId(userName);
+        userParseProcessAuth.setResource((Resource)Resources.PROCESS_DEFINITION);
+        userParseProcessAuth.setResourceId("CreateUsersFromFile");
+        userParseProcessAuth.removePermission((Permission)Permissions.ALL);
+        authorizationService.saveAuthorization((Authorization)userParseProcessAuth);
+
+        final AuthorizationEntity userCleaningProcessAuth = new AuthorizationEntity(2);
+        userCleaningProcessAuth.setUserId(userName);
+        userCleaningProcessAuth.setResource((Resource)Resources.PROCESS_DEFINITION);
+        userCleaningProcessAuth.setResourceId("CleanUpProcessData");
+        userCleaningProcessAuth.removePermission((Permission)Permissions.ALL);
+        authorizationService.saveAuthorization((Authorization)userCleaningProcessAuth);
     }
 }
