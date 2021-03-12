@@ -22,6 +22,12 @@ import javax.inject.Named;
 @Named("parseFileForUserInfo")
 public class ParseFileForUserInfo implements JavaDelegate {
 
+    final int USER_ID_POSITION = 0;
+    final int FIRST_NAME_POSITION = 1;
+    final int LAST_NAME_POSITION = 2;
+    final int EMAIL_ADDRESS_POSITION = 3;
+    final int CREATE_USER_FLAG_POSITION = 4;
+
     public void execute(final DelegateExecution execution) throws Exception {
         final RuntimeService runtimeService = execution.getProcessEngineServices().getRuntimeService();
         final FileValue retrievedTypedFileValue = (FileValue)runtimeService.getVariableTyped(execution.getId(), "fileLocation");
@@ -40,18 +46,18 @@ public class ParseFileForUserInfo implements JavaDelegate {
             while ((line = br.readLine()) != null) {
                 final UserDetails newUser = new UserDetails();
                 final String[] users = line.split(cvsSplitBy);
-                final String createUser = users[6];
-                if (createUser == null || createUser.isEmpty()) {
-                    System.out.println("User has opped out and will not be created.");
-                }
-                else {
-                    newUser.setFirstName(users[9]);
-                    newUser.setSecondName(users[11]);
-                    newUser.setEmail(users[13]);
+                    try {
+                        newUser.setFirstName(users[FIRST_NAME_POSITION].replaceAll("\"", ""));
+                        newUser.setSecondName(users[LAST_NAME_POSITION].replaceAll("\"", ""));
+                        newUser.setEmail(users[EMAIL_ADDRESS_POSITION]);
+                    }catch(Exception e){
+                        System.out.println("USER NOT CREATED: There's missing data on this line: "+ line);
+                        break;
+                    }
+
                     System.out.println("User [First Name= " + newUser.getFirstName() + " , Second Name=" + newUser.getSecondName() + " , Email=" + newUser.getEmail() + "]");
                     userList.add(newUser);
                     ++numberOfUsers;
-                }
             }
         } catch (IOException e) {
             e.printStackTrace();

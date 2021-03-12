@@ -21,7 +21,7 @@
       <dependency>
         <groupId>org.camunda.bpm</groupId>
         <artifactId>camunda-bom</artifactId>
-        <version>7.14.0</version>
+        <version>7.14.0-ee</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -32,13 +32,13 @@
     <dependency>
       <groupId>org.camunda.bpm.springboot</groupId>
       <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-      <version>7.14.0</version>
+      <version>7.14.0-ee</version>
     </dependency>
 
     <dependency>
       <groupId>org.camunda.bpm.springboot</groupId>
-      <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-      <version>7.14.0</version>
+      <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
+      <version>7.14.0-ee</version>
     </dependency>
 
     <dependency>
@@ -101,5 +101,14 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>camunda-bpm-nexus-ee</id>
+      <name>camunda-bpm-nexus</name>
+      <url>
+        https://app.camunda.com/nexus/content/repositories/camunda-bpm-ee
+      </url>
+    </repository>
+  </repositories>
 
 </project>

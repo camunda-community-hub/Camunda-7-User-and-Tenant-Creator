@@ -1,5 +1,9 @@
 spring.datasource.url: jdbc:h2:file:./camunda-h2-database
 
-camunda.bpm.admin-user:
-  id: demo
-  password: demo
+camunda.bpm:
+  admin-user:
+    id: demo
+    password: demo
+  authorization:
+    enabled: true
+    tenant-check-enabled: true

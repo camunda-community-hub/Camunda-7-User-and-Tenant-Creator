@@ -123,7 +123,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0swqit7_di" bpmnElement="Participant_1woqgu8" isHorizontal="true">
-        <dc:Bounds x="757" y="81" width="398" height="60" />
+        <dc:Bounds x="570" y="81" width="398" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_0ihhamm_di" bpmnElement="MessageFlow_0ihhamm">
         <di:waypoint x="856" y="236" />
