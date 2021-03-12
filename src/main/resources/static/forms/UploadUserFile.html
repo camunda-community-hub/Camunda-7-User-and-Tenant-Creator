@@ -5,14 +5,19 @@
 </head>
 <body>
 <form>
-
-
+    <div>
+    <h2>You need to upload a file with a list of users</h2>
+    <textarea id="textarea1" name="w3review" rows="4" cols="50" readonly>
+        The file format should be a .csv file with the following format
+        UserId,FirstName,LastName,Email
+        e.g. niall1,Niall,Deehan,email@exmaple.com
+    </textarea>
+    </div>
     <div class="fileinputs">
     <input type="file" name="file" id="file" class="infile"
            cam-variable-name="fileLocation"
            cam-variable-type="File"
            cam-max-filesize="10000000"  />
-    <label for="file">Choose a file</label>
     </div>
 
 </form>
