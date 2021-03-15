@@ -23,18 +23,18 @@
        You also need to change two more dependencies below.
        The engine spring boot starter and the web apps spring boot starter
        You also need to change the repository where you're getting your maven artifacts.
--->
+
      <dependency>
        <groupId>org.camunda.bpm</groupId>
        <artifactId>camunda-bom</artifactId>
-       <version>7.14.5-ee</version>
+       <version>7.14.0-ee</version>
        <scope>import</scope>
        <type>pom</type>
      </dependency>
-
+      -->
      <!-- If you want to use the CE version of Camunda you need to use the below dependency
        You also need to change two more dependencies below. The engine spring boot starter and the web apps spring boot starter
-
+       -->
      <dependency>
        <groupId>org.camunda.bpm</groupId>
        <artifactId>camunda-bom</artifactId>
@@ -42,7 +42,6 @@
        <scope>import</scope>
        <type>pom</type>
      </dependency>
-     -->
 
     </dependencies>
 
@@ -50,21 +49,20 @@
 
   <dependencies>
     <!-- If you want to use the EE version of Camunda you need to use the below dependency
-    -->
    <dependency>
      <groupId>org.camunda.bpm.springboot</groupId>
      <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-     <version>7.14.5-ee</version>
+     <version>7.14.0-ee</version>
    </dependency>
 
    <dependency>
      <groupId>org.camunda.bpm.springboot</groupId>
      <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
-     <version>7.14.5-ee</version>
+     <version>7.14.0-ee</version>
    </dependency>
+   -->
 
-
-   <!-- If you want to use the CE version of Camunda you need to use the below dependency
+   <!-- If you want to use the CE version of Camunda you need to use the below dependency -->
     <dependency>
      <groupId>org.camunda.bpm.springboot</groupId>
      <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
@@ -77,7 +75,7 @@
      <version>7.14.0</version>
    </dependency>
 
-      -->
+
 
     <dependency>
       <groupId>org.camunda.bpm</groupId>
@@ -167,7 +165,8 @@
   </build>
   <!-- To use the EE version of Camunda you need to add the below repo to get the artifacts. Make sure to also update your maven settings
    so that it can log into the right place
- -->
+
+
   <repositories>
     <repository>
       <id>camunda-bpm-nexus-ee</id>
@@ -177,6 +176,6 @@
       </url>
     </repository>
   </repositories>
-
+  -->
 
 </project>
