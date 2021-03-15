@@ -7,19 +7,7 @@
     <bpmn:participant id="Participant_1woqgu8" name="Mail Service" />
     <bpmn:messageFlow id="MessageFlow_0ihhamm" sourceRef="DisplayUserDetailsTask" targetRef="Participant_1woqgu8" />
   </bpmn:collaboration>
-  <bpmn:process id="CreateUserAndTenant" name="Create User And Tenant" isExecutable="true" camunda:historyTimeToLive="1">
-    <bpmn:serviceTask id="Task_1r9bscl" name="Generate Username and password" camunda:delegateExpression="#{generateUserPassword}">
-      <bpmn:incoming>SequenceFlow1</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_021x9eq</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="CreateUserAndTenantTask" name="Create User and Tenant" camunda:asyncBefore="true" camunda:delegateExpression="#{createUser}">
-      <bpmn:incoming>SequenceFlow_021x9eq</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1kvp44q</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="CreateAuthenticationTask" name="Create Authentication" camunda:asyncBefore="true" camunda:delegateExpression="#{createAuth}">
-      <bpmn:incoming>SequenceFlow_1kvp44q</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_15iikga</bpmn:outgoing>
-    </bpmn:serviceTask>
+  <bpmn:process id="CreateUserAndTenant" name="Create User And Tenant" isExecutable="true" camunda:historyTimeToLive="1" camunda:isStartableInTasklist="false">
     <bpmn:sequenceFlow id="SequenceFlow_1kvp44q" sourceRef="CreateUserAndTenantTask" targetRef="CreateAuthenticationTask" />
     <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="UserNeedsToBeCreatedStartEvent" targetRef="Task_1r9bscl" />
     <bpmn:sequenceFlow id="SequenceFlow_021x9eq" sourceRef="Task_1r9bscl" targetRef="CreateUserAndTenantTask" />
@@ -36,98 +24,110 @@
       </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow1</bpmn:outgoing>
     </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0srgkne" sourceRef="BoundaryEvent_0m1759l" targetRef="EndEvent_11r5sne" />
+    <bpmn:sequenceFlow id="SequenceFlow_15iikga" sourceRef="CreateAuthenticationTask" targetRef="DisplayUserDetailsTask" />
+    <bpmn:serviceTask id="Task_1r9bscl" name="Generate Username and password" camunda:delegateExpression="#{generateUserPassword}">
+      <bpmn:incoming>SequenceFlow1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_021x9eq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="CreateUserAndTenantTask" name="Create User and Tenant" camunda:asyncBefore="true" camunda:delegateExpression="#{createUser}">
+      <bpmn:incoming>SequenceFlow_021x9eq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1kvp44q</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="CreateAuthenticationTask" name="Create Authentication" camunda:asyncBefore="true" camunda:delegateExpression="#{createAuth}">
+      <bpmn:incoming>SequenceFlow_1kvp44q</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_15iikga</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:endEvent id="UserCreatedEndEvent" name="User Created">
       <bpmn:incoming>SequenceFlow_0ct2135</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:boundaryEvent id="BoundaryEvent_0m1759l" name="User already exists" attachedToRef="Task_1r9bscl">
-      <bpmn:outgoing>SequenceFlow_0srgkne</bpmn:outgoing>
-      <bpmn:errorEventDefinition errorRef="Error_1rrkv5q" />
-    </bpmn:boundaryEvent>
     <bpmn:endEvent id="EndEvent_11r5sne" name="User Not created">
       <bpmn:incoming>SequenceFlow_0srgkne</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0srgkne" sourceRef="BoundaryEvent_0m1759l" targetRef="EndEvent_11r5sne" />
-    <bpmn:sequenceFlow id="SequenceFlow_15iikga" sourceRef="CreateAuthenticationTask" targetRef="DisplayUserDetailsTask" />
     <bpmn:sendTask id="DisplayUserDetailsTask" name="Send Details to User" camunda:asyncBefore="true" camunda:expression="#{true}">
       <bpmn:incoming>SequenceFlow_15iikga</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ct2135</bpmn:outgoing>
     </bpmn:sendTask>
+    <bpmn:boundaryEvent id="BoundaryEvent_0m1759l" name="User already exists" attachedToRef="Task_1r9bscl">
+      <bpmn:outgoing>SequenceFlow_0srgkne</bpmn:outgoing>
+      <bpmn:errorEventDefinition errorRef="Error_1rrkv5q" />
+    </bpmn:boundaryEvent>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_05w742q">
       <bpmndi:BPMNShape id="Participant_08ku3tp_di" bpmnElement="Participant_08ku3tp" isHorizontal="true">
-        <dc:Bounds x="130" y="181" width="944" height="292" />
+        <dc:Bounds x="130" y="181" width="974" height="292" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_15iikga_di" bpmnElement="SequenceFlow_15iikga">
-        <di:waypoint x="683" y="276" />
-        <di:waypoint x="806" y="276" />
+        <di:waypoint x="713" y="276" />
+        <di:waypoint x="836" y="276" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0srgkne_di" bpmnElement="SequenceFlow_0srgkne">
-        <di:waypoint x="320" y="334" />
-        <di:waypoint x="320" y="414" />
-        <di:waypoint x="410" y="414" />
+        <di:waypoint x="350" y="334" />
+        <di:waypoint x="350" y="414" />
+        <di:waypoint x="440" y="414" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0ct2135_di" bpmnElement="SequenceFlow_0ct2135" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
-        <di:waypoint x="906" y="276" />
-        <di:waypoint x="995" y="276" />
+        <di:waypoint x="936" y="276" />
+        <di:waypoint x="1025" y="276" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_021x9eq_di" bpmnElement="SequenceFlow_021x9eq">
-        <di:waypoint x="354" y="276" />
-        <di:waypoint x="421" y="276" />
+        <di:waypoint x="384" y="276" />
+        <di:waypoint x="451" y="276" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_08va5r8_di" bpmnElement="SequenceFlow1">
         <di:waypoint x="216" y="276" />
-        <di:waypoint x="254" y="276" />
+        <di:waypoint x="284" y="276" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="337.5" y="110" width="90" height="20" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1kvp44q_di" bpmnElement="SequenceFlow_1kvp44q">
-        <di:waypoint x="521" y="276" />
-        <di:waypoint x="583" y="276" />
+        <di:waypoint x="551" y="276" />
+        <di:waypoint x="613" y="276" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_02849tv_di" bpmnElement="Task_1r9bscl">
-        <dc:Bounds x="254" y="236" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1btzv38_di" bpmnElement="CreateUserAndTenantTask">
-        <dc:Bounds x="421" y="236" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1ugjt9i_di" bpmnElement="CreateAuthenticationTask">
-        <dc:Bounds x="583" y="236" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_15yjvsh_di" bpmnElement="UserNeedsToBeCreatedStartEvent">
         <dc:Bounds x="180" y="258" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="156" y="294" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_02849tv_di" bpmnElement="Task_1r9bscl">
+        <dc:Bounds x="284" y="236" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1btzv38_di" bpmnElement="CreateUserAndTenantTask">
+        <dc:Bounds x="451" y="236" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1ugjt9i_di" bpmnElement="CreateAuthenticationTask">
+        <dc:Bounds x="613" y="236" width="100" height="80" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0fkea3f_di" bpmnElement="UserCreatedEndEvent">
-        <dc:Bounds x="995" y="258" width="36" height="36" />
+        <dc:Bounds x="1025" y="258" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="980" y="294" width="66" height="14" />
+          <dc:Bounds x="1010" y="294" width="66" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_11r5sne_di" bpmnElement="EndEvent_11r5sne">
-        <dc:Bounds x="410" y="396" width="36" height="36" />
+        <dc:Bounds x="440" y="396" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="386" y="439" width="84" height="14" />
+          <dc:Bounds x="416" y="439" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="SendTask_12tujeq_di" bpmnElement="DisplayUserDetailsTask">
-        <dc:Bounds x="806" y="236" width="100" height="80" />
+        <dc:Bounds x="836" y="236" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BoundaryEvent_1m2ldi1_di" bpmnElement="BoundaryEvent_0m1759l">
-        <dc:Bounds x="302" y="298" width="36" height="36" />
+        <dc:Bounds x="332" y="298" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="246" y="324.5" width="63" height="27" />
+          <dc:Bounds x="276" y="325" width="63" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0swqit7_di" bpmnElement="Participant_1woqgu8" isHorizontal="true">
-        <dc:Bounds x="570" y="81" width="398" height="60" />
+        <dc:Bounds x="600" y="81" width="398" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_0ihhamm_di" bpmnElement="MessageFlow_0ihhamm">
-        <di:waypoint x="856" y="236" />
-        <di:waypoint x="856" y="141" />
+        <di:waypoint x="886" y="236" />
+        <di:waypoint x="886" y="141" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
