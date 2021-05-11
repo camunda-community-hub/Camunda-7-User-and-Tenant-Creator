@@ -9,6 +9,25 @@ public class UserDetails implements Serializable
     String secondName;
     String email;
 
+    public String getCamundaUserName() {
+        return camundaUserName;
+    }
+
+    public void setCamundaUserName(String camundaUserName) {
+        this.camundaUserName = camundaUserName;
+    }
+
+    public String getCamundaPassword() {
+        return camundaPassword;
+    }
+
+    public void setCamundaPassword(String camundaPassword) {
+        this.camundaPassword = camundaPassword;
+    }
+
+    String camundaUserName;
+    String camundaPassword;
+
     public String getFirstName() {
         return this.firstName;
     }

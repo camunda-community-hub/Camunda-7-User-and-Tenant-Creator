@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.8.0">
   <bpmn:error id="Error_1rrkv5q" name="AlreadyExists" errorCode="AlreadyExists" />
   <bpmn:error id="Error_1y8re4m" name="invalidEmail" errorCode="invalidEmail" />
   <bpmn:collaboration id="Collaboration_05w742q">
     <bpmn:participant id="Participant_08ku3tp" processRef="CreateUserAndTenant" />
-    <bpmn:participant id="Participant_1woqgu8" name="Mail Service" />
+    <bpmn:participant id="Participant_1woqgu8" name="(TODO) Mail Service" />
     <bpmn:messageFlow id="MessageFlow_0ihhamm" sourceRef="DisplayUserDetailsTask" targetRef="Participant_1woqgu8" />
   </bpmn:collaboration>
   <bpmn:process id="CreateUserAndTenant" name="Create User And Tenant" isExecutable="true" camunda:historyTimeToLive="1" camunda:isStartableInTasklist="false">
@@ -38,29 +38,29 @@
       <bpmn:incoming>SequenceFlow_1kvp44q</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_15iikga</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="UserCreatedEndEvent" name="User Created">
-      <bpmn:incoming>SequenceFlow_0ct2135</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:endEvent id="EndEvent_11r5sne" name="User Not created">
       <bpmn:incoming>SequenceFlow_0srgkne</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="DisplayUserDetailsTask" name="Send Details to User" camunda:asyncBefore="true" camunda:expression="#{true}">
-      <bpmn:incoming>SequenceFlow_15iikga</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ct2135</bpmn:outgoing>
-    </bpmn:sendTask>
     <bpmn:boundaryEvent id="BoundaryEvent_0m1759l" name="User already exists" attachedToRef="Task_1r9bscl">
       <bpmn:outgoing>SequenceFlow_0srgkne</bpmn:outgoing>
       <bpmn:errorEventDefinition errorRef="Error_1rrkv5q" />
     </bpmn:boundaryEvent>
+    <bpmn:endEvent id="UserCreatedEndEvent" name="User Created">
+      <bpmn:incoming>SequenceFlow_0ct2135</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sendTask id="DisplayUserDetailsTask" name="Send Email To user" camunda:asyncBefore="true" camunda:expression="#{true}">
+      <bpmn:incoming>SequenceFlow_15iikga</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ct2135</bpmn:outgoing>
+    </bpmn:sendTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_05w742q">
       <bpmndi:BPMNShape id="Participant_08ku3tp_di" bpmnElement="Participant_08ku3tp" isHorizontal="true">
-        <dc:Bounds x="130" y="181" width="974" height="292" />
+        <dc:Bounds x="130" y="181" width="934" height="292" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_15iikga_di" bpmnElement="SequenceFlow_15iikga">
         <di:waypoint x="713" y="276" />
-        <di:waypoint x="836" y="276" />
+        <di:waypoint x="796" y="276" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0srgkne_di" bpmnElement="SequenceFlow_0srgkne">
         <di:waypoint x="350" y="334" />
@@ -68,8 +68,8 @@
         <di:waypoint x="440" y="414" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0ct2135_di" bpmnElement="SequenceFlow_0ct2135" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
-        <di:waypoint x="936" y="276" />
-        <di:waypoint x="1025" y="276" />
+        <di:waypoint x="896" y="276" />
+        <di:waypoint x="985" y="276" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_021x9eq_di" bpmnElement="SequenceFlow_021x9eq">
         <di:waypoint x="384" y="276" />
@@ -101,20 +101,20 @@
       <bpmndi:BPMNShape id="ServiceTask_1ugjt9i_di" bpmnElement="CreateAuthenticationTask">
         <dc:Bounds x="613" y="236" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0fkea3f_di" bpmnElement="UserCreatedEndEvent">
-        <dc:Bounds x="1025" y="258" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1010" y="294" width="66" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_11r5sne_di" bpmnElement="EndEvent_11r5sne">
         <dc:Bounds x="440" y="396" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="416" y="439" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SendTask_12tujeq_di" bpmnElement="DisplayUserDetailsTask">
-        <dc:Bounds x="836" y="236" width="100" height="80" />
+      <bpmndi:BPMNShape id="EndEvent_0fkea3f_di" bpmnElement="UserCreatedEndEvent">
+        <dc:Bounds x="985" y="258" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="970" y="294" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_12tujeq_di" bpmnElement="DisplayUserDetailsTask" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="796" y="236" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BoundaryEvent_1m2ldi1_di" bpmnElement="BoundaryEvent_0m1759l">
         <dc:Bounds x="332" y="298" width="36" height="36" />
@@ -123,11 +123,11 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0swqit7_di" bpmnElement="Participant_1woqgu8" isHorizontal="true">
-        <dc:Bounds x="600" y="81" width="398" height="60" />
+        <dc:Bounds x="600" y="81" width="358" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_0ihhamm_di" bpmnElement="MessageFlow_0ihhamm">
-        <di:waypoint x="886" y="236" />
-        <di:waypoint x="886" y="141" />
+        <di:waypoint x="846" y="236" />
+        <di:waypoint x="846" y="141" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

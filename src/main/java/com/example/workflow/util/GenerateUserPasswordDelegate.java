@@ -20,14 +20,24 @@ public class GenerateUserPasswordDelegate implements JavaDelegate
         if (alreadyCreated) {
             throw new BpmnError("AlreadyExists");
         }
-        execution.setVariable("firstName", (Object)user.getFirstName());
-        execution.setVariable("secondName", (Object)user.getSecondName());
-        execution.setVariable("emailAddress", (Object)user.getEmail());
         String userName = user.getFirstName() + user.getSecondName();
         userName = this.normalizeUserName(userName);
         for (int appendedNumber = 1; this.userExists(userName, execution); userName += appendedNumber, ++appendedNumber) {}
-        execution.setVariable("userName", (Object)userName);
-        execution.setVariable("password", (Object)this.randomPassword());
+
+
+        user.setCamundaPassword(this.randomPassword());
+        user.setCamundaUserName(userName);
+
+        execution.setVariable("firstName", (Object)user.getFirstName());
+        execution.setVariable("secondName", (Object)user.getSecondName());
+        execution.setVariable("emailAddress", (Object)user.getEmail());
+
+                execution.setVariable("userName", user.getCamundaUserName());
+        execution.setVariable("password", user.getCamundaPassword());
+
+        execution.setVariable("userDetails"+userName, user);
+
+
     }
 
     private String normalizeUserName(String userName) {
