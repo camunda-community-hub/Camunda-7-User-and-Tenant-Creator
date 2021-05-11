@@ -1,5 +1,10 @@
+# To connect to postgres - you can run the docker-compose.yml file and use the following dataseource
+#spring.datasource:
+#  type: org.postgresql.ds.PGSimpleDataSource
+#  username: postgres
+# password: postgres
+#  url: jdbc:postgresql://localhost:5432/postgres
 spring.datasource.url: jdbc:h2:file:./camunda-h2-database
-
 camunda.bpm:
   admin-user:
     id: TheDoctor
@@ -7,3 +12,5 @@ camunda.bpm:
   authorization:
     enabled: true
     tenant-check-enabled: true
+  filter:
+    create: All tasks

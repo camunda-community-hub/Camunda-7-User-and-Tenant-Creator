@@ -100,6 +100,11 @@
       <artifactId>h2</artifactId>
     </dependency>
 
+     <dependency>
+         <groupId>org.postgresql</groupId>
+         <artifactId>postgresql</artifactId>
+     </dependency>
+
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -118,40 +123,48 @@
       <artifactId>javax.mail</artifactId>
       <version>1.6.2</version>
     </dependency>
+    <dependency>
+      <groupId>org.camunda.bpm</groupId>
+      <artifactId>camunda-engine</artifactId>
+      <version>7.15.0</version>
+    </dependency>
+
 
   </dependencies>
 
   <build>
-    <plugins>
+      <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <configuration>
-          <mainClass>com.example.workflow.util.Application</mainClass>
-        </configuration>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <configuration>
+              <mainClass>com.example.workflow.util.Application</mainClass>
+          </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <source>8</source>
-          <target>8</target>
-        </configuration>
-      </plugin>
-    </plugins>
+          <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>repackage</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.8.1</version>
+              <configuration>
+                  <source>8</source>
+                  <target>8</target>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
+
+
   <!-- To use the EE version of Camunda you need to add the below repo to get the artifacts. Make sure to also update your maven settings
    so that it can log into the right place
  -->
